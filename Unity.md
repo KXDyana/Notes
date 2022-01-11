@@ -81,7 +81,7 @@ renderer2.flipY = true;
 * mained by Transform Component
 * To get the parent object of current object:
 ```C#
-GameObject parent = this.Transform.parent.gameObject;
+GameObject parent = this.transform.parent.gameObject;
 ```
 * To get the child objects of current object:
 ```C#
@@ -97,4 +97,30 @@ GameObject obj2 = GameObject.find("summoner");
 obj1.transform.SetParent(obj2.transform);
 //set obj1 as a child of obj2
 ```
+```C#
+GameObject obj3 = GameObject.find("lost equipment");
+obj3.transform.SetParent(null);
+//set obj3's parent as the scene/root object
+```
+
+## attributes of component
+```C#
+* public * = *;
+```
+
+## movement calculation
+* position: Vector3 (x,y,z) 
+```C#
+transform.position
+```
+* rotation: Vector3
+```C#
+transform.eulerAngles
+// or use transform.rotation, Vector4. more complicated
+``` 
+position/rotation can be local or worldspace:
+```C#
+transform.localPosition
+transform.localEulerAngles
+
  

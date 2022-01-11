@@ -62,5 +62,39 @@ Update(){
     //move up 0.8 unit per second
 }
 ```
-* the larger the time interval, the larger the moving distance
+* this way, the larger the time interval, the larger the moving distance, creating an illution of constant speed
+
+## get other components under the same game object
+```C#
+SpriteRenderer renderer = this.gameObject.GetComponent<SpriteRenderer>();
+SpriteRenderer renderer = this.GetComponent<SpriteRenderer>();
+SpriteRenderer renderer = GetComponent<SpriteRenderer>();
+//all functions the same way
+```
+## get other game object under the same scene
+```C#
+GameObject obj1 = GameObject.Find("/Figure/22");
+SpriteRenderer renderer2 = obj1.GetComponent<SpriteRenderer>();
+renderer2.flipY = true;
+```
+## Parend and Child
+* mained by Transform Component
+* To get the parent object of current object:
+```C#
+GameObject parent = this.Transform.parent.gameObject;
+```
+* To get the child objects of current object:
+```C#
+foreach(Transform child in transform){
+    Debug.log("I am child " + child.name);
+}
+```
+
+## modify object hierachy
+```C#
+GameObject obj1 = GameObject.find("plane");
+GameObject obj2 = GameObject.find("summoner");
+obj1.transform.SetParent(obj2.transform);
+//set obj1 as a child of obj2
+```
  

@@ -117,10 +117,118 @@ transform.position
 ```C#
 transform.eulerAngles
 // or use transform.rotation, Vector4. more complicated
+// positive: counterclockwise
 ``` 
 position/rotation can be local or worldspace:
 ```C#
 transform.localPosition
 transform.localEulerAngles
+```
+
+## continuous movement
+```C
+transform.Translate(0,0.02f,0,Space.Self);
+//Space.Self: refer oneself to move
+//Space.World: refer the scene to move
+```
+
+## Vector
+* to get the magnitude (length of a vector):
+```C#
+float len = v.magnitude;
+```
+* to normalize a vector (change the length to 1)
+```C#
+Vector3 normalizedV = v.normalized
+```
+* static constant:
+```C#
+Vector3.right = (1,0,0)
+Vector3.up = (0,1,0)
+Vector3.forward = (0,0,1)
+```
+* printing vector: default only one decimal. to print more, use
+```C#
+v.ToString("F3");
+```
+
+## Vector Calculation
+* addition (subtraction):
+```
+(a,b) + (c,d) = (a + c, b + d)
+```
+* multiplication by constant
+```
+3(a, b) = (3a, 3b)
+```
+* dot multiplication
+```
+
+```
+* cross multuiplication
+```
+
+```
+
+### eg: calculate distance
+```C#
+GameObject target = GameObject.Find("targetObj");
+Vector3 targetPosition = target.transform.position;
+Vector3 selfPosition = this.transform.position;
+
+Vector direction = targetPosition - selfPosition;
+Debug.Log("distance between self and target = " + direction.magnitude);
+```
+
+### calculate angle
+* to get the angle between two vectors:
+```C#
+Vector3 a = new Vector3(2,2,0);
+Vector3 b = new Vector3(-1,3,0);
+float angle = Vector3.SignedAngle(a, b, Vector3.forward);
+//counterclockwise: positive; clockwise: negative
+```
+
+ ``### direction of an object
+```C#
+transform.right: the X axis of the object
+transform.up: the Y axis of the object
+transform.forward: the Z axis of the object
+this.transform.rotate
+```
+
+## coordinates
+* scene coordinate
+* screen coordinate
+    * Screen.width (pixel)
+    * Screen.height
+```C#
+Vector3 screenPos = camera.main.WorldToScreenPoint(worldPos);
+```
+
+## player boundarie: use screen coordinate
+
+## event functions
+* starting with "On", triggered when corresponding event occurs
+* not starting with "On", automatically triggered by system.
+* e.g.:
+    * OnAwake: when instance is created
+    * OnEnable: when component is enabled
+    * if disabled, only Awake() is executed.
+
+## ordering of function exeuction
+```C#
+for (Script s: sss){
+    s.Awake();
+}
+for (Script s: sss){
+    s.Start();
+}
+```
+* no obvious ordering of which object is executed first
+* if some script need to be executed first, use execution order:
+
+
+
 
  

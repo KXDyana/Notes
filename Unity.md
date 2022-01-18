@@ -189,7 +189,7 @@ float angle = Vector3.SignedAngle(a, b, Vector3.forward);
 //counterclockwise: positive; clockwise: negative
 ```
 
- ``### direction of an object
+* direction of an object
 ```C#
 transform.right: the X axis of the object
 transform.up: the Y axis of the object
@@ -228,7 +228,16 @@ for (Script s: sss){
 * no obvious ordering of which object is executed first
 * if some script need to be executed first, use execution order:
 
+## Mouse Event
+* In Update(), we can detect mouse event
+```C#
+if(Input.GetMouseButtonDown(0)){ //0: left, 1: right, 2: wheel
+    Debug.Log("Pressed at " + Input.mousePosition);
+}
+```
 
+## Prefab
+* previously created, used for dynamicly creating objs
 
 
  

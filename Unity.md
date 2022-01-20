@@ -238,6 +238,109 @@ if(Input.GetMouseButtonDown(0)){ //0: left, 1: right, 2: wheel
 
 ## Prefab
 * previously created, used for dynamicly creating objs
+* override -> apply all: apply changes to prefab and other instances
+* unpack prefab: unlink linkage between instance and prefab
+
+## dynamically creating prefab:
+```C#
+public GameObject myPrefab;
+// link in inspector
+
+GameObject bullet = Instantiate(myPrefab);//new bullet
+bullet.transform.position = transform.position + new Vector3 (0,1f,0);// place above the plane
+bullet.name = "my bullet";
+```
+## dynqamically destroy obj:
+```C#
+Destroy(this.GameObject);
+```
+
+## Timer
+```C#
+private float interval = 0.4f;
+private float count = 0;
 
 
- 
+void Update(){
+    count += Time.deltaTime();
+    if (count >= interval){
+        count = 0;
+        Fire();
+    }
+}
+```
+
+## Keyboard Event
+```
+Input.GetKeyDown(key);
+Input.GetKeyUp(key);
+Input.GetKey(key);//get state
+```
+
+## physics
+* RigidBody: has mass, velocity...
+    types:
+    * dynamic: has mass, has velocity
+    * static: infinite mass, 0 velocity (typically on buildings)
+    * kinematic: 0 mass
+
+## collision
+* collider component
+## Bounce:
+* create physics material
+    * friction
+    * bounciness
+* rigidbody-material
+
+## Kinematic Rigidbody
+* used for collision detection 
+* In collider component, check istrigger
+* 
+```C#
+private void OnTriggerEnter2D(Collider2D collision){
+    //collision: the colliding object component
+    collision.gameObject 
+    collision.transform
+    collision.name
+    sollicion.tag
+
+}
+// what happens when collisions start, happens once
+private void OnTriggerStay2D(Collider2D collision){
+
+}
+//what happens when collision is happending, happens every frame
+
+private void OnTriggerExit(Collider2D collision){
+
+}
+// what happens when collision ends, happens once.
+```
+
+## Collision detection
+* tag: player/enemy
+```C# 
+private void OnTriggerEnter(Collider2D collision){
+    if(collision.gameObject.tag.Equals("Enemy")){
+        Destroy(collision.gameObject);
+    }
+}
+```
+
+## avoid collision detection (for performance)
+* use layers&layer collision matrix: collisions between some layers can be ignored
+
+## Centre Controller
+* MyGame.cs: for global settings (such as Application.targetFrameRate)
+
+## repeated creating objects
+```C#
+float spawnYPosition = Random.Range(min,max);
+void Start(){
+    InvokeRepeating("CreateMonster", 0.1f, 2f);
+}
+```
+
+## use multiple sprites for enemy
+```C#
+Sprite[] images;

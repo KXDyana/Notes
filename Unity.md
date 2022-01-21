@@ -407,6 +407,7 @@ audio.Play();                   //overplay
 Invoke("Reponse", 3);
 
 ## Scoring
+* using main controller
 ```C#
 public class MyGame : MonoBehaviour{
     public int score = 0;
@@ -418,7 +419,21 @@ public class MyGame : MonoBehaviour{
 
     }
     public void AddScore(int value){
-        this.score += value;
-        //UI refresh
+        this.score += value;   
     }
 }
+```
+```C#
+public class Mole:MonoBehaviour{
+    Update(){
+        if (hit()){
+            GameObject main = GameObject.Find("main_controller");
+            MyGame myGame = main.GetComponent<MyGame>();
+            myGame.AddScore(1);
+
+            //main.SendMessage("AddScore",1);
+            //same effect
+        }
+    }
+}
+```

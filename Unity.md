@@ -344,3 +344,96 @@ void Start(){
 ## use multiple sprites for enemy
 ```C#
 Sprite[] images;
+void CreateMonster(){
+    float monsterX = Random.Range(-2,2);
+    float monsterY = 5;
+    GameObject monster = Instantiate(monsterPrefab);
+    monster.transform.position = new Vector(monsterX,monsterY,0);
+
+    int index = Random.Rnage(0, images.Length);
+    SpriteRenderer renderer = monster.GetComponent<SpriteRenderer>();
+    renderer.sprite = this.images[index];
+
+    //scale monster
+    Sprite sprite = this.image[index];
+    float imgWidth = sprite.rect.width;
+    float scale = 100 / imgWidth;
+    monster.transform.localScale = new Vector3(scale,scale,scale);
+}
+```
+
+
+## Backgound Crontroller
+* use two (or more) images to create a looping background
+```C#
+public class BackgroundCtrl : MonoBehaviour{
+    Transform bg1;
+    Transform bg2;
+    // since we are only using Transform Component, we dont need the GameObj
+
+    void Start(){
+        bg1 = GameObject.Find("bg/bg1").transform;
+        bg2 = GameObject.Find("bg/bg2").transform;
+
+        bg1.position = new Vector3(0,0,0);
+        bg2.position = new Vector3(0,10,0);
+
+
+    }
+
+    void Update(){
+        float dy = speed * Time.deltaTime;
+        bg1.Translate(0, -dy, 0);
+        bg2.Translate(0, -dy, 0);
+
+        if (bg1.position.y <= -10){
+            bg1.Translate(0,20,0);
+        }
+        if (bg2.position.y <= -10){
+            bg2.Translate(0,20,0);
+        }
+    }
+}
+```
+
+## play audio
+```C# 
+AudioSource audio = GetComponent<AudioSource>();
+audio.PlayOneShot(audio.clip);  //not overplay
+audio.Play();                   //overplay
+```
+
+## Delayed execution
+Invoke("Reponse", 3);
+
+## Scoring
+* using main controller
+```C#
+public class MyGame : MonoBehaviour{
+    public int score = 0;
+
+    void Start(){
+
+    }
+    void Update(){
+
+    }
+    public void AddScore(int value){
+        this.score += value;   
+    }
+}
+```
+```C#
+public class Mole:MonoBehaviour{
+    Update(){
+        if (hit()){
+            GameObject main = GameObject.Find("main_controller");
+            MyGame myGame = main.GetComponent<MyGame>();
+            myGame.AddScore(1);
+
+            //main.SendMessage("AddScore",1);
+            //same effect
+        }
+    }
+}
+```

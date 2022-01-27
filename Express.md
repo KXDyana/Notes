@@ -44,13 +44,36 @@ app.post('/', (req,res) => {
 ### get list: GET /todos
 ```javascript
 app.get('/todos', (req, res) => {
-    res.send('get /todos')
+    fs.readFile('./db.json', 'utf8', (err, data) => {
+        if (err) {
+            return res.status(500).json({
+                error: err.message
+            })
+        }
+        const db = JSON.parse(data)
+        res.status(200).json(db.todos)
+    })
+    // res.send('get /todos') for testing purpose
 })
 ```
 ### get item according to id: GET /todos/:id
 ```javascript
 app.get('/todos/:id', (req, res) => {
-    res.send('get /todos/${req.params.id}')
+    fs.readFile('./db.json', 'utf8', (err, data) => {
+        if (err) {
+            return res.status(500).json({
+                error: err.message
+            })
+        }
+        const db = JSON.parse(data)
+        const todo = db.todos.find(todo => todo.id === Number.parseInt(req.params.id))
+        if (!todo){
+            return res.status(404).end()
+        }
+        res.status(200).json(todo)
+    })
+    
+    // res.send('get /todos/${req.params.id}') for testing
 })
 ```
 ### add list item: POST /todos
